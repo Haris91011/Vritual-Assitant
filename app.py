@@ -12,12 +12,12 @@ class SessionState:
         self.__dict__.update(kwargs)
 
 verbose=True
-llm = ChatOpenAI(model = "gpt-4",temperature=0.1)
+llm = ChatOpenAI(model = "gpt-4",temperature = 0.5)
 config = dict(
 physician_name = "William",
 company_name="InnoTech",
 conversation_history=[],
-conversation_stage = conversation_stages.get('1', "Patient Profile: Start the conversation by introducing yourself as a mental health professinal. Ask the patient about the Name, Age, Gender and Occupation. Do not move to the next stage until the patient provides Age, Gender and Occupation. If you do not find Age, Gender and Occupation of patient in the conversation history, Move the conversation to this stage and remain in this stage until Age, Gender and occupation information is provided"),
+conversation_stage = conversation_stages.get('3',"Ensure to Recognize the signs and symptoms of common medical emergencies, such as someone took high dose of medicine, Suicide attempt, suicidal thoughts, heart attack, stroke, allergic reaction, bleeding, poisoning, etc. Provide clear and concise instructions on how to perform first aid or CPR, or use an AED or an EpiPen, depending on the situation. Call 911 or the local emergency number for the user, or guide them to do so, and share their location and condition with the dispatcher Connect the user with a qualified medical professional, such as a doctor, nurse, or paramedic, who can offer further advice and support until help arrives. Consolidate the user if they need any mental health counseling in emergency situation, such as coping with stress, anxiety, trauma, or grief.Ensure to provide appropriate help to the patient and you must not refer the patient to any Mental health Expert"),
 use_tools=False
 )
 
@@ -73,7 +73,7 @@ def get_text():
         "You: ",
         # st.session_state['user'],
         key="user",
-        placeholder="Your Asistant is here to Help you ...",
+        placeholder="Type your message here...",
         # label_visibility="hidden",
     )
     # print("hello",input_text)
@@ -83,8 +83,8 @@ def get_text():
     
 
 
-st.title("Virtual Assistant 👨‍⚕️🩺👩‍⚕️")
-st.markdown("Get expert medical advice and diagnosis from our Virtual Assitant service.")
+st.title("Virtual Assistant👨‍⚕️🩺👩‍⚕️")
+st.markdown("Get medical advice and diagnosis from Virtual Assistant.")
 
 user_input = get_text()
 def clear_text():

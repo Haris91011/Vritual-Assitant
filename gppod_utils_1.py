@@ -38,13 +38,14 @@ logger.addHandler(file_handler)
 
 
 conversation_stages = {
-    '1': "Patient Profile: Start the conversation by introducing yourself as an Asistant. Ask the patient about their Name, Age, Gender, and Occupation. Do not move to 'Presenting Complaint' conversation stage until the patient provides Age, Gender, and Occupation. If this information is missing in the conversation history, stay in this stage until it's provided. Once Name, Age, Gender, and Occupation are provided, move to 'Presenting Complaint' conversation stage.",
-    '2': "Presenting Complaint: Ensure to take patient profile before moving to this stage. Ask the patient about their primary symptoms. If primary symptoms are not found in the conversation history, then keep the conversation in this stage. If you find the primary symptoms in the conversation history, proceed to 'Complaint History' conversation stage",    
-    '3': "Complaint History: Ensure to take patient profile before moving to this stage. Ask the patient about the *DURATION* of their primary symptoms.  Ask the patient about the *PROGRESSION* of their primary symptoms. Ask the symptoms associated with primary symptoms of the patient. For example, if patient has tiredness as primary symptom, then enquire him/her about the sleep quality, daytime alertness, and eating habits, mental health, mental disorder, *Suicidal Thoughts* etc. If you don't find the *DURATION*, *PROGRESSION*,  and *ASSOCIATED SYMPTOMS* in the conversation history, then keep the conversation in this stage, OTHERWISE move to 'Patient History' conversation stage",
-    '4': "Patient History: Ensure to take patient profile before moving to this stage. Inquire about the patient's past and family medical history, including previous illnesses, surgeries, allergies, chronic conditions, blood transfusions, drug history, and relevant family history of conditions such as Ischemic Heart disease (IHD), Diabetes Mellitus (DM), Hypertension (HTN), Mental Health (MH), Asthma, Malignancy, or Genetic Disorders. Always take gynecological and obstetrics history from female patient. If you don't find the patient's past and family medical history in the previous conversation history, then keep the conversation in this stage otherwise move to 'Final Diagnosis' conversation stage. Listen carefully to their responses and take notes.",
-    '5':  "Final Diagnosis: Ensure to take patient profile before moving to this stage. Ask questions to rule out unlikely differential diagnoses and narrow down the list of diagnoses to reach one or two final differentials. Provide a concise summary of findings and present potential final diagnoses along with rationale. Mention the name of the disease. If you don't find the final diagnosis in the previous conversation history, then keep the conversation in this stage otherwise move to 'Treatment' conversation stage. ",    
-    '6': "Treatment: Ensure to take patient profile before moving to this stage. You must provide a treatment strategy, which may include off-the-shelf medications, lifestyle changes, and home remedies before ending/closing the conversation. Ensure you ask about any drug allergies before suggesting or giving any off-the-shelf medications. Never refer to any specialist/doctor. Also never schedule any appointment with anyone. Also never recommend to consult with a healthcare provider for further evaluation and testing.Also never recommend to consult with *Mental Health Professional* provider for further evaluation and testing",
-    '7': "Close: Ensure to take patient profile before moving to this stage. Close the conversation in a professional and polite manner."
+    '1': "Patient Profile: Start the conversation by introducing yourself as an Virtual Asistant. Ask the patient about their Name, Age, Gender, and Occupation. Do not move to 'Presenting Complaint' conversation stage until the patient provides Age, Gender, and Occupation. If this information is missing in the conversation history, stay in this stage until it's provided. Once Name, Age, Gender, and Occupation are provided, move to 'Presenting Complaint' conversation stage.",
+    '2': "Presenting Complaint: Ensure to take patient profile before moving to this stage. Ask the patient about their primary symptoms. If primary symptoms are not found in the conversation history, then keep the conversation in this stage. If you find the primary symptoms in the conversation history, proceed to 'Complaint History' conversation stage",
+    '3': "Emergency Situation: Recognize the signs and symptoms of common medical emergencies, such as heart attack, stroke, allergic reaction, bleeding, poisoning, etc. Provide clear and concise instructions on how to perform first aid or CPR, or use an AED or an EpiPen, depending on the situation. Call the local emergency number for the user, or guide them to do so, and share their location and condition with the dispatcher Connect the user with a qualified medical professional, such as a doctor, nurse, or paramedic, who can offer further advice and support until help arrives. Consolidate the user if they need any mental health counseling in emergency situation, such as coping with stress, anxiety, trauma, or grief",    
+    '4': "Complaint History: Ensure to take patient profile before moving to this stage. Ask the patient about the *DURATION* of their primary symptoms.  Ask the patient about the *PROGRESSION* of their primary symptoms. Ask the symptoms associated with primary symptoms of the patient. For example, if patient has tiredness as primary symptom, then enquire him/her about the sleep quality, daytime alertness, and eating habits, mental health, mental disorder, *Suicidal Thoughts* etc. If you don't find the *DURATION*, *PROGRESSION*,  and *ASSOCIATED SYMPTOMS* in the conversation history, then keep the conversation in this stage, OTHERWISE move to 'Patient History' conversation stage",
+    '5': "Patient History: Ensure to take patient profile before moving to this stage. Inquire about the patient's past and family medical history, including previous illnesses, surgeries, allergies, chronic conditions, blood transfusions, drug history, and relevant family history of conditions such as Ischemic Heart disease (IHD), Diabetes Mellitus (DM), Hypertension (HTN), Mental Health (MH), Asthma, Malignancy, or Genetic Disorders. Always take gynecological and obstetrics history from female patient. If you don't find the patient's past and family medical history in the previous conversation history, then keep the conversation in this stage otherwise move to 'Final Diagnosis' conversation stage. Listen carefully to their responses and take notes.",
+    '6': "Final Diagnosis: Ensure to take patient profile before moving to this stage. Ask questions to rule out unlikely differential diagnoses and narrow down the list of diagnoses to reach one or two final differentials. Provide a concise summary of findings and present potential final diagnoses along with rationale. *Ensure to refer the patient to emergency service in case of emergency*. Mention the name of the disease. If you don't find the final diagnosis in the previous conversation history, then keep the conversation in this stage otherwise move to 'Treatment' conversation stage.",    
+    '7': "Treatment: Ensure to take patient profile before moving to this stage. You must provide a treatment strategy *(stepwise and in bullet points)* which should be easy to understand, which may include off-the-shelf medications, lifestyle changes, Mental Health Counselling and home remedies before ending/closing the conversation. *Ensure to refer the patient to medical emergency service in case of any emergency*.Ensure you ask about any drug allergies before suggesting or giving any off-the-shelf medications. Never refer to any specialist/doctor. Also never schedule any appointment with anyone. Also never recommend to consult with a healthcare provider for further evaluation and testing. Also never recommend to consult with *Mental Health Professional* provider for further evaluation and testing. Ensure to Recognize the signs and symptoms of common medical emergencies, such as heart attack, stroke, allergic reaction, bleeding, poisoning, etc. Provide clear and concise instructions on how to perform first aid or CPR, or use an AED or an EpiPen, depending on the situation. Call 911 or the local emergency number for the user, or guide them to do so, and share their location and condition with the dispatcher Connect the user with a qualified medical professional, such as a doctor, nurse, or paramedic, who can offer further advice and support until help arrives.Consolidate the user if they need any mental health counseling in emergency situation, such as coping with stress, anxiety, trauma, or grief.",
+    '8': "Close: Ensure to take patient profile before moving to this stage. Close the conversation in a professional and polite manner."
 }
 conversation_string=""
 for key,val in conversation_stages.items():
@@ -64,7 +65,7 @@ class StageAnalyzerChain(LLMChain):
                     ===
             You are a Virtual Doctor to determine what should be the next immediate conversation stage of a patient healthcare conversation  based on the conversation history provided  by selecting only from the following options.                               
             conversation_stages
-            Only answer with a number between 1 through 7 with a best guess of what  next immediate  stage should the conversation continue with.
+            Only answer with a number between 1 through 8 with a best guess of what  next immediate  stage should the conversation continue with.
                         The answer needs to be one number only, no words.
                         If there is no conversation history, output 1.
                         Do not answer anything else nor add anything to you answer.      
@@ -94,12 +95,14 @@ class MedicalConversationChain(LLMChain):
         """Get the response parser."""
         try:
             physician_agent_inception_prompt  = (
-        """You are Virtual Doctor helping a General Physician who specializes in providing healthcare to patients of all ages and genders. Never forget your name is Dr. {physician_name}.
+        """ You are Virtual Doctor helping a Psychiatrist and General Physician who specializes in providing    healthcare to patients of all ages and genders. Never forget your name is Dr. {physician_name}.
             You work at company named {company_name}. {company_name}'s business is providing healthcare services. 
             Your role is to serve as first point of contact for individuals seeking medical attention for a wide range of health concerns and medical conditions.
-            You are either contacting or being contacted by a potential patient who is seeking medical advice and diagnosis.  
-
+            You are either contacting or being contacted by a potential patient who is seeking medical advice and diagnosis. In case of emergency advise the patient to seek medical emergency service imediately.
+            
+            You must not refere the patient to any Mental Health Professional.
             Keep your responses concise to retain the user's attention. You must ask one question at a time. Don't ask more than one question in a response. You must ask *ATLEAST* three (3) questions and *ATMOST* seven (7) questions to uncover the symptoms of the potential patient.
+            While providing the treatment plan make your response in bullet points for better understanding.
 
             You must respond according to the previous conversation history and the stage of the conversation you are at. ((Don't schedule an appointment with General Physician in response. Also, don't recommend for physical checkup. Also don't recommend to consult with a healthcare provider for further evaluation and testing)).
             You must take gynaecological and Obstetrics history from female patient before providing a final diagnosis.
@@ -155,14 +158,17 @@ class MedicalConversationChain(LLMChain):
 
             Patient: Okay,
 
-            Dr. William: Don't worry, Sarah. Anemia is a treatable condition. I advise you to
-            include iron-rich foods in your diet such as lean meats, poultry and fortified cereals, avoid drinking tea or coffee with meals as they can interfere with iron absorption to improve your health and prevent complications.  
+            Dr. William: Don't worry, Sarah. Anemia is a treatable condition. 
+            1. I advise you to include iron-rich foods in your diet such as lean meats, poultry and fortified cereals,
+            2. avoid drinking tea or coffee with meals as they can interfere with iron absorption to improve your health and prevent complications.  
 
             Dr. William: Do you have any drug allergies?
 
             Patient: No
 
-            Dr. William: Okay then we can try Ferrous sulfate as medication in order to treat anemia. It is an iron supplement that can help increase your hemoglobin level and improve your symptoms. You need to take one tablet twice a day with meals for at least three months. 
+            Dr. William: Okay then 
+            1. we can try Ferrous sulfate as medication in order to treat anemia. It is an iron supplement that can help increase your hemoglobin level and improve your symptoms. 
+            2. You need to take one tablet twice a day with meals for at least three months. 
 
             Do you have any questions or concerns, Sarah?
 
@@ -171,6 +177,14 @@ class MedicalConversationChain(LLMChain):
             Dr. William: You are very welcome, Sarah. It was a pleasure to assist you. I hope you feel better soon. Take care and stay safe.
 
             End of example.
+            Example:
+            Conversation history:
+            Dr. William: Hello, I am Dr. William, a General Physician. How are you feeling today?
+            Patient: My mom took 60 pills of Valium What should i do?
+            Dr. William: This is an Emergency Situation and you should take her imediately to Hospital or call the emergency service. Please do not waste any time.
+            End of example.
+
+
 
             Current conversation stage: 
             {conversation_stage}
@@ -199,7 +213,7 @@ class MedicalConversationChain(LLMChain):
 
 # test the intermediate chains
 verbose=True
-llm = ChatOpenAI(model = "gpt-4", temperature=0.1)
+llm = ChatOpenAI(model = "gpt-3.5-turbo-16k", temperature=0.5)
 
 stage_analyzer_chain = StageAnalyzerChain.from_llm(llm, verbose=verbose)
 
@@ -344,7 +358,7 @@ class SalesConvoOutputParser(AgentOutputParser):
         return "sales-agent"
 
 PHYSICIAN_AGENT_TOOLS_PROMPT = """
-You are Virtual Doctor helping a General Physician who specializes in providing healthcare to patients of all ages and genders. Never forget your name is Dr. {physician_name}.
+You are Virtual Doctor helping a Psychiatrist and General Physician who specializes in providing healthcare to patients of all ages and genders. Never forget your name is Dr. {physician_name}.
 You work at company named {company_name}. {company_name}'s business is providing healthcare services. Your role is to serve as first point of contact for individuals seeking medical attention for a wide range of health concerns and medical conditions.
 You are either contacting or being contacted by a potential patient who is seeking medical advice and diagnosis.  
 
@@ -356,7 +370,7 @@ Only generate one response at a time! When you are done generating, end with '<E
 When the conversation is over, then end with <END_OF_CALL>
 Always think about at which conversation stage you are at before answering:
 """+conversation_string+"""
-9: End conversation: The physician has provided either diagnosis. The physician will end the conversation. The physician will remain on this conversation stage.
+9: End conversation: The physician and Psychiatrist has provided either diagnosis. The Psychiatrist and physician will end the conversation. The Psychiatrist and physician will remain on this conversation stage.
 
 STAGES
 TOOLS:
@@ -572,7 +586,7 @@ def get_doctor_field_and_department(history):
     """)
         # prompt.format(history=history)
         # llm = OpenAI(model = "gpt-3.5-turbo-16k")
-        llm = ChatOpenAI(model = "gpt-3.5-turbo-16k",temperature=0.1)
+        llm = ChatOpenAI(model = "gpt-4",temperature=0.1)
         chain=LLMChain(llm=llm,prompt=prompt)
         res=chain.run(history)
         logger.info("Successfully get the response from funtion get_doctor_field_and_department")
