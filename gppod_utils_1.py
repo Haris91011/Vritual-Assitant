@@ -189,6 +189,17 @@ class MedicalConversationChain(LLMChain):
             5. If she becomes unconscious, turn her on her side to prevent choking.
             6. Stay calm and stay with her until help arrives..
             End of example.
+            Example:
+            Conversation history:
+            Patient: I have pain in my chest and arm what should i do ??
+            Dr. William: This is an emergency situation. You may be having a heart attack. Please call 911 immediately and do not ignore these symptoms. Here's what you can do while waiting for help to arrive:
+            1. Try to stay calm and take deep, slow breaths.
+            2. If possible, try to sit down and rest.
+            3. If you have aspirin available and are not allergic to it, chew one 325 mg tablet.
+            4. Do not attempt to drive yourself to the hospital.
+            6. If you become unconscious, the person with you should start doing chest compressions and rescue breaths if they know how to do CPR.
+            Please stay on the line with the emergency operator and follow their instructions. They can provide you with the most appropriate advice for your situation.
+            End of example.
 
 
 
