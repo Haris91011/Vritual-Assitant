@@ -12,7 +12,7 @@ class SessionState:
         self.__dict__.update(kwargs)
 
 verbose=True
-llm = ChatOpenAI(model = "gpt-4",temperature = 0.5)
+llm = ChatOpenAI(model = "gpt-4-1106-preview",temperature = 0.5)
 config = dict(
 physician_name = "William",
 company_name="InnoTech",
